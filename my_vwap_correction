@@ -1,0 +1,12 @@
+def na = Double.NaN;
+input beginTime = 0100;
+input endTime = 0900;
+
+def isInRange = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 0 then 1 else 0;
+def volumeSum = if isInRange then volume + volumeSum[1] else volumeSum[1];
+def dollarTraded = if isInRange then volume * vwap + dollarTraded[1] else dollarTraded[1];
+def vwapCheck = dollarTraded / volumeSum;
+# Plot TestLine=if isInRange then vwap else na;
+
+
+AddLabel(yes,"$"+Round(dollarTraded,0) +"/" + volumeSum + "=" + vwapCheck, color.gray);

@@ -1,0 +1,23 @@
+def na = Double.NaN;
+input preMktBegin = 0100;
+input preMktEnd = 0930;
+input ShowTodayOnly = {"No", default "Yes"};
+def s = ShowTodayOnly;
+
+def preMktActive = if SecondsTillTime(preMktEnd) > 0 and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
+def today = if s == 0 or GetDay() == GetLastDay() and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
+def isInRange = if GetDay() == GetLastDay() and SecondsTillTime(preMktEnd) > 0 and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
+def volumeSum = if isInRange then volume + volumeSum[1] else volumeSum[1];
+def dollarTraded = if isInRange then volume *vwap + dollarTraded[1] else dollarTraded[1];
+
+
+AddLabel(yes,"preMkt:$" + Round(dollarTraded/1000000, 2)+"M", color.gray);
+
+def isInRange1 = if GetDay() == GetLastDay() and SecondsFromTime(0930) == 0 then 1 else 0;
+def dollarTraded1 = if isInRange1 then volume * vwap + dollarTraded1[1] else dollarTraded1[1];
+AddLabel(yes,"1st:$" + Round(dollarTraded1/1000000, 2)+"M", color.gray);
+
+
+def isInRange2 = if GetDay() == GetLastDay() and SecondsFromTime(0931) == 0 then 1 else 0;
+def dollarTraded2 = if isInRange2 then volume * vwap + dollarTraded2[1] else dollarTraded2[1];
+AddLabel(yes,"2nd:$" + Round(dollarTraded2/1000000, 1)+"M", color.gray);

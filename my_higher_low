@@ -1,0 +1,25 @@
+def na = Double.NaN;
+input beginTime = 0930;
+input endTime = 1030;
+
+def isInRange1 = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 3*60 then 1 else 0;
+def isInRange2 = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 2*60 then 1 else 0;
+def isInRange3 = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 1*60 then 1 else 0;
+def isInRange4 = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 0 then 1 else 0;
+def isHigherLow1 = isInRange1 and low > low[1] and low[1] > low[2] and low[2] > low[3];
+def isHigherLow2 = isInRange2 and low[-1] > low and low > low[1] and low[1] > low[2];
+def isHigherLow3 = isInRange3 and low[-2] > low[-1] and low[-1] > low and low > low[1];
+def isHigherLow4 = isInRange4 and low[-3] > low[-2] and low[-2] > low[-1] and low[-1] > low;
+plot higherLow =  if isHigherLow1 or isHigherLow2 or isHigherLow3 or isHigherLow4 then low else na;
+higherLow.setdefaultColor(createColor(38,166,154));
+higherLow.setstyle(Curve.LONG_DASH);
+higherLow.setlineweight(2);
+
+def isLowerHigh1 = isInRange1 and high < high[1] and high[1] < high[2] and high[2] < high[3];
+def isLowerHigh2 = isInRange2 and high[-1] < high and high < high[1] and high[1] < high[2];
+def isLowerHigh3 = isInRange3 and high[-2] < high[-1] and high[-1] < high and high < high[1];
+def isLowerHigh4 = isInRange4 and high[-3] < high[-2] and high[-2] < high[-1] and high[-1] < high;
+plot lowerHigh =  if isLowerHigh1 or isLowerHigh2 or isLowerHigh3 or isLowerHigh4 then high else na;
+lowerHigh.setdefaultColor(createColor(255,82,82));
+lowerHigh.setstyle(Curve.LONG_DASH);
+lowerHigh.setlineWeight(2);

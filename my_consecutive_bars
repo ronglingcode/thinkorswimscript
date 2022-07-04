@@ -1,0 +1,21 @@
+def na = Double.NaN;
+input beginTime = 0930;
+input endTime = 1030;
+
+def isInRange3 = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 3 * 60 then 1 else 0;
+def isMinute3 =  if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 3 * 60 and SecondsFromTime(beginTime) < 4*60 then 1 else 0;
+
+def isGreen3 = isInRange3 and open < close and open[1] < close[1] and open[2] < close[2] and (isMinute3 or open[3] >= close[3]);
+def isRed3 = isInRange3 and open > close and open[1] > close[1] and open[2] > close[2] and (isMinute3 or open[3] <= close[3]);
+
+AddChartBubble(isRed3, low, "3", createColor(239,154,154), 0);
+AddChartBubble(isGreen3, high, "3", createColor(165,214,167));
+
+def isInRange5 = if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 5 * 60 then 1 else 0;
+def isMinute5 =  if GetDay() == GetLastDay() and SecondsTillTime(endTime) > 0 and SecondsFromTime(beginTime) >= 5 * 60 and SecondsFromTime(beginTime) < 6*60 then 1 else 0;
+
+def isGreen5 = isInRange5 and open < close and open[1] < close[1] and open[2] < close[2] and open[3] < close[3] and open[4] < close[4] and (isMinute5 or open[5] >= close[5]);
+def isRed5 = isInRange5 and open > close and open[1] > close[1] and open[2] > close[2] and open[3] > close[3] and open[4] > close[4] and (isMinute5 or open[5] <= close[5]);
+
+AddChartBubble(isRed5, low, "5", createColor(239,154,154), 0);
+AddChartBubble(isGreen5, high, "5",  createColor(165,214,167));

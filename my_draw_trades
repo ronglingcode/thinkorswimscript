@@ -1,0 +1,9 @@
+input beginTime = 0930;
+def time = SecondsFromTime(beginTime);
+
+
+AddChartBubble(time == 60, 160, "3", createColor(239,154,154), 0);
+
+
+AddChartBubble(isRed3, low, "3", createColor(239,154,154), 0);
+AddChartBubble(isGreen3, high, "3", createColor(165,214,167));

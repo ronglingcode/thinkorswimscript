@@ -1,9 +1,25 @@
+def na = Double.NaN;
 input beginTime = 0930;
+input endTime = 1030;
+DefineGlobalColor("BubbleGreen", CreateColor(165,214,167));
+DefineGlobalColor("BubbleRed", CreateColor(239,154,154));
 def time = SecondsFromTime(beginTime);
 
-
-AddChartBubble(time == 60, 160, "3", createColor(239,154,154), 0);
-
-
-AddChartBubble(isRed3, low, "3", createColor(239,154,154), 0);
-AddChartBubble(isGreen3, high, "3", createColor(165,214,167));
+AddChartBubble(GetSymbol() == "SPY" and time == 60, 383.86, "-115", GlobalColor("BubbleRed"), 1);
+AddChartBubble(GetSymbol() == "SPY" and time == 360, 383.33, "+8", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "SPY" and time == 240, 383.54, "+58", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "SPY" and time == 600, 384.16, "+49", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "SPY" and time == 420, 383.5, "+8", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "FDX" and time == 1080, 157.62, "-18", GlobalColor("BubbleRed"), 1);
+AddChartBubble(GetSymbol() == "FDX" and time == 1320, 157.63, "+8", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "FDX" and time == 1560, 158.89, "+10", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "FDX" and time == 1200, 156.85, "+2", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "FDX" and time == 1260, 156.97, "+18", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "FDX" and time == 1380, 157.28, "-14", GlobalColor("BubbleRed"), 1);
+AddChartBubble(GetSymbol() == "FDX" and time == 2100, 160.65, "+8", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "FDX" and time == 960, 157.63, "-16", GlobalColor("BubbleRed"), 1);
+AddChartBubble(GetSymbol() == "QQQ" and time == 480, 286.72, "-45", GlobalColor("BubbleRed"), 1);
+AddChartBubble(GetSymbol() == "QQQ" and time == 780, 286.45, "+56", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "QQQ" and time == 900, 286.78, "+28", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "QQQ" and time == 720, 286.49, "+6", GlobalColor("BubbleGreen"), 0);
+AddChartBubble(GetSymbol() == "QQQ" and time == 600, 286.72, "-45", GlobalColor("BubbleRed"), 1);

@@ -7,8 +7,6 @@ SecondsFromTime(beginTime) > 0 then 1 else 0;
 
 DefineGlobalColor("WeakGreen", CreateColor(56,142,60));
 DefineGlobalColor("WeakRed", CreateColor(229,57,53));
-DefineGlobalColor("DefaultGreen", CreateColor(67,125,92));
-DefineGlobalColor("DefaultRed", CreateColor(187,27,38));
 DefineGlobalColor("StrongGreen", CreateColor(21,71,52));
 DefineGlobalColor("StrongRed", CreateColor(183,28,28));
 

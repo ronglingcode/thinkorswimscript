@@ -13,8 +13,6 @@ DefineGlobalColor("StrongGreen", CreateColor(21,71,52));
 DefineGlobalColor("StrongRed", CreateColor(183,28,28));
 
 AssignPriceColor(
-if isInRange and close > open and close >high[1] then GlobalColor("StrongGreen") 
-else if isInRange and close > open and close <=high[1] then GlobalColor("WeakGreen") 
-else if isInRange and close < open and close <low[1] then GlobalColor("StrongRed") 
+if isInRange and close > open and close <=high[1] then GlobalColor("WeakGreen") 
 else if isInRange and close < open and close >= low[1] then GlobalColor("WeakRed") 
 else Color.Current);

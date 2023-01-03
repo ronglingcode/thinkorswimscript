@@ -1,11 +1,9 @@
 def na = Double.NaN;
-input preMktBegin = 0100;
-input preMktEnd = 0930;
-input ShowTodayOnly = {"No", default "Yes"};
-def s = ShowTodayOnly;
+def preMktBegin = 0100;
+def preMktEnd = 0930;
 
 def preMktActive = if SecondsTillTime(preMktEnd) > 0 and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
-def today = if s == 0 or GetDay() == GetLastDay() and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
+def today = if GetDay() == GetLastDay() and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
 def isInRange = if GetDay() == GetLastDay() and SecondsTillTime(preMktEnd) > 0 and SecondsFromTime(preMktBegin) >= 0 then 1 else 0;
 def volumeSum = if isInRange then volume + volumeSum[1] else volumeSum[1];
 def dollarTraded = if isInRange then volume *vwap + dollarTraded[1] else dollarTraded[1];

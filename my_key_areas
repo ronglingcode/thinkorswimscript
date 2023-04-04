@@ -1,0 +1,4 @@
+def na=Double.NaN;
+Rec h1=if GetSymbol() == "TSLA" then 196.1 else na;
+Rec l1=if GetSymbol() == "TSLA"  then 195.9 else na;
+addCloud(l1,h1,createColor(97,97,97), createColor(97,97,97));

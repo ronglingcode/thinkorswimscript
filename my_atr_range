@@ -1,0 +1,20 @@
+def aggregationPeriod = AggregationPeriod.DAY;
+
+def prevHigh = high(period = aggregationPeriod)[-1];
+def currentHigh = high(period = aggregationPeriod);
+def dayHigh = if !IsNaN(prevHigh) then Double.NaN else currentHigh;
+
+def prevLow = low(period = aggregationPeriod)[-1];
+def currentLow = low(period = aggregationPeriod);
+def dayLow = if !IsNaN(prevLow) then Double.NaN else currentLow;
+
+def ATR = MovingAverage( AverageType.WILDERS, TrueRange(high(period=”DAY”)[1], close(period=”DAY”)[1], low(period=”DAY”)[1]), 14);
+
+
+def shortATR1 = dayHigh-0.1*ATR;
+def shortATR4 = dayHigh-0.4*ATR;
+addCloud(shortATR1,shortATR4,createColor(255,205,210), createColor(255,205,210));
+
+def longATR1 = dayLow+0.1*ATR;
+def longATR4 = dayLow+0.4*ATR;
+addCloud(longATR1,longATR4,createColor(128,203,196), createColor(128,203,196));

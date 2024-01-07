@@ -15,7 +15,5 @@ def isInRange1 = if GetDay() == GetLastDay() and SecondsFromTime(0930) == 0 then
 def dollarTraded1 = if isInRange1 then volume * vwap + dollarTraded1[1] else dollarTraded1[1];
 AddLabel(yes,"1st:$" + Round(dollarTraded1/1000000, 2)+"M", color.gray);
 
-
-def isInRange2 = if GetDay() == GetLastDay() and SecondsFromTime(0931) == 0 then 1 else 0;
-def dollarTraded2 = if isInRange2 then volume * vwap + dollarTraded2[1] else dollarTraded2[1];
-AddLabel(yes,"2nd:$" + Round(dollarTraded2/1000000, 1)+"M", color.gray);
+def currentDollarTraded = volume*vwap;
+AddLabel(yes, "Cur:$" + Round(currentDollarTraded/1000000,1)+"M", color.gray);

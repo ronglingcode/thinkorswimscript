@@ -1,0 +1,16 @@
+def na = Double.NaN;
+def preMktBegin = 0100;
+def preMktEnd = 0930;
+def marketEnd = 1600;
+
+def isPostmarket = if SecondsFromTime(marketEnd) >=0 then 1 else 0;
+
+def volumeSumPrevious = if isPostmarket then 0 else volume + volumeSumPrevious[1];
+def dollarTradedPrevious = if isPostmarket then 0 else volume *vwap + dollarTradedPrevious[1];
+
+def myvwap = if isPostmarket then 0 else dollarTradedPrevious/volumeSumPrevious;
+
+Def keyLevel = if GetSymbol() == "TSM" then 182.45 else 0;
+
+addCloud(1000, Max(keyLevel, myvwap), createColor(0,110,51),createColor(0,110,51));
+addCloud(Min(keyLevel,myvwap), 0,createColor(223,70,97),createColor(223,70,97));

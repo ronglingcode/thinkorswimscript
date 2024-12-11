@@ -1,0 +1,6 @@
+def highLevel = if GetSymbol() == "AI" then 40 else if GetSymbol() == "GOOGL" then 183.61 else if GetSymbol() == "TSLA" then 402.67 else 0;
+def lowLevel = if GetSymbol() == "AI" then 40 else if GetSymbol() == "GOOGL" then 183.61 else if GetSymbol() == "TSLA" then 402.67 else 0;
+addCloud(1000, highLevel, createColor(0,110,51),createColor(0,110,51));
+addCloud(lowLevel, 0,createColor(223,70,97),createColor(223,70,97));
+
+

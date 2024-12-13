@@ -16,3 +16,7 @@ addCloud(1000, Max(keyLevel, myvwap), createColor(0,110,51),createColor(0,110,51
 addCloud(Min(keyLevel,myvwap), 0,createColor(223,70,97),createColor(223,70,97));
 
 
+input price_type = {default "LAST", "BID", "ASK", "MARK"};
+def openPrice = open(GetSymbol(),  AggregationPeriod.DAY, price_type);
+def openZone = if openPrice < keyLevel and openPrice < myvwap then  -1 else 0;
+AddLabel(yes, openZone, color.gray);

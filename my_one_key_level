@@ -9,14 +9,10 @@ def volumeSumPrevious = if isPostmarket then 0 else volume + volumeSumPrevious[1
 def dollarTradedPrevious = if isPostmarket then 0 else volume *vwap + dollarTradedPrevious[1];
 
 def myvwap = if isPostmarket then 0 else dollarTradedPrevious/volumeSumPrevious;
+Def keyLevelHigh = if GetSymbol() == "AVGO" then 218.95 else if GetSymbol() == "UPS" then 121.56 else if GetSymbol() == "META" then 682.58 else if GetSymbol() == "MSFT" then 423.5 else 0;
+Def keyLevelLow = if GetSymbol() == "AVGO" then 218.43 else if GetSymbol() == "UPS" then 121.56 else if GetSymbol() == "META" then 682.58 else if GetSymbol() == "MSFT" then 423.5 else 0;
 
-Def keyLevel = if GetSymbol() == "AI" then 40 else if GetSymbol() == "GOOGL" then 183.61 else if GetSymbol() == "TSLA" then 402.67 else 0;
-
-addCloud(1000, Max(keyLevel, myvwap), createColor(0,110,51),createColor(0,110,51));
-addCloud(Min(keyLevel,myvwap), 0,createColor(223,70,97),createColor(223,70,97));
+addCloud(10000, Max(keyLevelHigh, myvwap), createColor(0,110,51),createColor(0,110,51));
+addCloud(Min(keyLevelLow,myvwap), 0,createColor(223,70,97),createColor(223,70,97));
 
 
-input price_type = {default "LAST", "BID", "ASK", "MARK"};
-def openPrice = open(GetSymbol(),  AggregationPeriod.DAY, price_type);
-def openZone = if openPrice < keyLevel and openPrice < myvwap then  -1 else 0;
-AddLabel(yes, openZone, color.gray);

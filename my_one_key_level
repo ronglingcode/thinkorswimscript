@@ -1,4 +1,3 @@
-def na = Double.NaN;
 def preMktBegin = 0100;
 def preMktEnd = 0930;
 def marketEnd = 1600;
@@ -9,10 +8,14 @@ def volumeSumPrevious = if isPostmarket then 0 else volume + volumeSumPrevious[1
 def dollarTradedPrevious = if isPostmarket then 0 else volume *vwap + dollarTradedPrevious[1];
 
 def myvwap = if isPostmarket then 0 else dollarTradedPrevious/volumeSumPrevious;
-Def keyLevelHigh = if GetSymbol() == "AVGO" then 218.95 else if GetSymbol() == "UPS" then 121.56 else if GetSymbol() == "META" then 682.58 else if GetSymbol() == "MSFT" then 423.5 else 0;
-Def keyLevelLow = if GetSymbol() == "AVGO" then 218.43 else if GetSymbol() == "UPS" then 121.56 else if GetSymbol() == "META" then 682.58 else if GetSymbol() == "MSFT" then 423.5 else 0;
 
-addCloud(10000, Max(keyLevelHigh, myvwap), createColor(0,110,51),createColor(0,110,51));
-addCloud(Min(keyLevelLow,myvwap), 0,createColor(223,70,97),createColor(223,70,97));
+Def atr = if GetSymbol() == "MSFT" then 11 else 3;
+Def keyLevelHigh = if GetSymbol() == "MSFT" then 431.2 else if GetSymbol() == "HOOD" then 51.25 else if GetSymbol() == "RBLX" then 74 else if GetSymbol() == "META" then 593.25 else 0;
+Def keyLevelLow = if GetSymbol() == "MSFT" then 431.2 else if GetSymbol() == "HOOD" then 51.07 else if GetSymbol() == "RBLX" then 74 else if GetSymbol() == "META" then 582.89 else 0;
 
 
+Def topEnd = max(keyLevelHigh, myvwap) + 0.35 * atr;
+Def bottomEnd = min(keyLevelLow, myvwap) - 0.35 * atr;
+
+addCloud(topEnd, Max(keyLevelHigh, myvwap), createColor(0,110,51),createColor(0,110,51));
+addCloud(Min(keyLevelLow,myvwap), bottomEnd,createColor(223,70,97),createColor(223,70,97));

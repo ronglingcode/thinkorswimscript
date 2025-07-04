@@ -1,0 +1,34 @@
+def preMktBegin = 0100;
+def preMktEnd = 0930;
+def marketEnd = 1600;
+
+def isPostmarket = if SecondsFromTime(marketEnd) >=0 then 1 else 0;
+
+def volumeSumPrevious = if isPostmarket then 0 else volume + volumeSumPrevious[1];
+def dollarTradedPrevious = if isPostmarket then 0 else volume *vwap + dollarTradedPrevious[1];
+
+def myvwap = if isPostmarket then 0 else dollarTradedPrevious/volumeSumPrevious;
+
+Def atr = if GetSymbol() == "DDOG" then 3.68 else if GetSymbol() == "NVDA" then 4 else 1;
+Def keyLevelHigh = if GetSymbol() == "DDOG" then 150 else if GetSymbol() == "NVDA" then 158.47 else 0;
+Def keyLevelLow = if GetSymbol() == "DDOG" then 150 else if GetSymbol() == "NVDA" then 158.47 else 0;
+Def longEndDistance = if GetSymbol() == "DDOG" then 2 else if GetSymbol() == "NVDA" then 2 else 0;
+Def shortEndDistance = if GetSymbol() == "DDOG" then 2 else if GetSymbol() == "NVDA" then 2 else 0;
+Def vwapDistance = if GetSymbol() == "DDOG" then 1 else if GetSymbol() == "NVDA" then 1 else 0;
+
+Def longAreaEnd = keyLevelHigh + longEndDistance;
+Def shortAreaEnd =  keyLevelLow - shortEndDistance;
+
+# above key level area 
+addCloud(longAreaEnd, keyLevelHigh, createColor(143,188,143), createColor(143,188,143));
+
+# below key level area
+addCloud(keyLevelLow, shortAreaEnd,createColor(223,70,97),createColor(223,70,97));
+
+Def vwapLowEnd = myvwap - vwapDistance;
+Def vwapHighEnd = myvwap + vwapDistance;
+# vwap band
+Def bottomEnd = min(shortAreaEnd, vwapLowEnd);
+Def topEnd = max(longAreaEnd, vwapHighEnd);
+addCloud(topEnd, Max(keyLevelHigh, myvwap), createColor(0,110,51),createColor(0,110,51));
+addCloud(Min(keyLevelLow,myvwap), bottomEnd,createColor(223,70,97),createColor(223,70,97));
